@@ -7,6 +7,28 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
+model ContentState {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  sha       String
+  timestamp DateTime @updatedAt
+}
+
+model Content {
+  id               String   @id @default(uuid())
+  contentDirectory String
+  slug             String   @unique
+  title            String
+  code             String
+  frontmatter      String
+  timestamp        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  published        Boolean
+  requiresUpdate   Boolean? @default(false)
+  description      String   @default("")
+}
+
 model User {
   id    String @id @default(cuid())
   email String @unique

@@ -47,3 +47,5 @@ vscode:
     - dbaeumer.vscode-eslint
     - bradlc.vscode-tailwindcss
     - oderwat.indent-rainbow
+    - Prisma.prisma
+    - sleistner.vscode-fileutils
