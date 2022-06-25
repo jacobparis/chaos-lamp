@@ -115,6 +115,7 @@ jobs:
           wait-on: "http://localhost:8811"
         env:
           PORT: "8811"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
     name: 🐳 Build

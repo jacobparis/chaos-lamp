@@ -107,7 +107,6 @@ export async function getMdxListItems({
     requiresUpdate(contentDirectory),
   ])
 
-  // TODO: Handle new content
   if (count === 0) {
     await populateMdx(contentDirectory)
   }
