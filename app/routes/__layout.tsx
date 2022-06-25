@@ -21,7 +21,7 @@ import { json } from "@remix-run/node"
 
 const navigation = [{ name: "Blog", href: "/blog", icon: BookOpenIcon }]
 
-function classNames(...classes) {
+function classNames(...classes: Array<string | undefined>) {
   return classes.filter(Boolean).join(" ")
 }
 
