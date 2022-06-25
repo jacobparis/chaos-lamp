@@ -22,7 +22,7 @@ type MdxComponent = {
   slug: string
   title: string
   code: string
-  timestamp: Date
+  timestamp: Date | null
   description?: string
 }
 
