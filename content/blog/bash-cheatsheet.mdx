@@ -1,0 +1,83 @@
+---
+title: Bash Cheatsheet
+description: Here is a bunch of different things you can do with bash
+tags: Linux, Bash, Cheatsheet
+published: true
+---
+
+Run *a* then *b*
+```sh
+a; b
+```
+
+Run *a*, and if it succeeds run *b*
+```sh
+a && b
+```
+
+Run *a* if a directory exists
+```sh
+[[ -d node_modules ]] && a
+```
+
+Run *npm i* if a *node_modules* doesn't exist
+```sh
+[[ ! -d node_modules ]] && npm i
+```
+
+Run *npm start* in a directory *src*
+```sh
+(cd src; npm start)
+```
+
+Output text
+```sh
+echo "Text"
+```
+
+Output text to a file
+```sh
+echo "Text" > file.txt
+```
+
+Append text to a file
+```sh
+echo "Text" >> file.txt
+```
+
+Run a function
+```sh
+hello () {
+  echo "Hello!"
+}
+
+hello
+```
+
+Run a function with arguments
+```sh
+hello () {
+  echo "Hello, $1"
+}
+
+hello "world"
+```
+
+Print *Variable VAR not set* if VAR doesn't exist
+```sh
+: ${VAR:?"Variable VAR not set"}
+```
+
+Exit if *docker* is not installed
+```sh
+if [ ! "$(command -v docker)" ]; then
+  echo "🐳 Docker daemon not installed"
+
+  exit 1
+fi
+```
+
+Suppress error output
+```sh
+docker run server 2>/dev/null 
+```

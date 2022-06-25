@@ -12,9 +12,9 @@ type ThrottleOptions = {
 }
 
 const cache = new Lrucache({
-  maxAge: 1000 * 60,
+  ttl: 1000 * 60,
   maxSize: 1024,
-  length: (value) => Buffer.byteLength(JSON.stringify(value)),
+  sizeCalculation: (value) => Buffer.byteLength(JSON.stringify(value)),
 })
 
 const Octokit = createOctokit.plugin(throttling)
@@ -32,14 +32,14 @@ const octokit = new Octokit({
   throttle: {
     onRateLimit: (retryAfter: number, options: ThrottleOptions) => {
       console.warn(
-        `Request quota exhausted for request ${options.method} ${options.url}. Retrying after ${retryAfter} seconds.`
+        `Request quota exhausted for request ${options.method} ${options.url}. Retrying after ${retryAfter} seconds.`,
       )
 
       return true
     },
     onAbuseLimit: (_: number, options: ThrottleOptions) => {
       octokit.log.warn(
-        `Abuse detected for request ${options.method} ${options.url}`
+        `Abuse detected for request ${options.method} ${options.url}`,
       )
     },
   },
@@ -65,7 +65,7 @@ async function downloadDirectoryListImpl(path: string) {
 
   if (!Array.isArray(data)) {
     throw new Error(
-      `GitHub should always return an array, not sure what happened for the path ${path}`
+      `GitHub should always return an array, not sure what happened for the path ${path}`,
     )
   }
 
@@ -79,7 +79,7 @@ async function downloadFileByShaImpl(sha: string) {
       owner: getGHOwner(),
       repo: getGHRepository(),
       file_sha: sha,
-    }
+    },
   )
 
   const encoding = data.encoding as Parameters<typeof Buffer.from>["1"]
@@ -89,7 +89,7 @@ async function downloadFileByShaImpl(sha: string) {
 export const downloadFileBySha = cachify(downloadFileByShaImpl)
 
 async function downloadFirstMdxFileImpl(
-  list: Array<{ name: string; sha: string; type: string }>
+  list: Array<{ name: string; sha: string; type: string }>,
 ) {
   const filesOnly = list.filter(({ type }) => type === "file")
 
@@ -125,7 +125,7 @@ async function downloadDirectoryImpl(path: string): Promise<Array<GitHubFile>> {
       }
       default:
         throw new Error(
-          `Unknown file type returned for the file ${fileOrDirectory.path}`
+          `Unknown file type returned for the file ${fileOrDirectory.path}`,
         )
     }
   }
@@ -145,15 +145,15 @@ export async function downloadMdxOrDirectory(relativePath: string) {
   const directoryList = await downloadDirectoryList(directory)
 
   const potentials = directoryList.filter(({ name }) =>
-    name.startsWith(basename)
+    name.startsWith(basename),
   )
   const potentialDirectory = potentials.find(({ type }) => type === "dir")
   const exactMatch = potentials.find(
-    ({ name }) => nodepath.parse(name).name === nameWithoutExt
+    ({ name }) => nodepath.parse(name).name === nameWithoutExt,
   )
 
   const content = await downloadFirstMdxFile(
-    exactMatch ? [exactMatch] : potentials
+    exactMatch ? [exactMatch] : potentials,
   )
 
   let entry = path
