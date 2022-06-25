@@ -1,24 +1,24 @@
-const execSync = require('child_process').execSync
+const execSync = require("child_process").execSync
 
-async function fetchJSON({ http = require('https'), url }) {
+async function fetchJSON({ http = require("https"), url }) {
   return new Promise((resolve, reject) => {
     try {
-      const req = http.get(url, res => {
-        let data = ''
-        res.on('data', chunk => (data += chunk))
+      const req = http.get(url, (res) => {
+        let data = ""
+        res.on("data", (chunk) => (data += chunk))
         res
-          .on('end', () => {
+          .on("end", () => {
             try {
               resolve(JSON.parse(data))
             } catch (e) {
               reject(e)
             }
           })
-          .on('error', error => {
+          .on("error", (error) => {
             reject(error)
           })
       })
-      req.on('error', error => {
+      req.on("error", (error) => {
         reject(error)
       })
     } catch (error) {
@@ -28,7 +28,7 @@ async function fetchJSON({ http = require('https'), url }) {
 }
 
 async function postJSON({
-  http = require('https'),
+  http = require("https"),
   postData,
   overrideOptions = {},
   overrideHeaders = {},
@@ -36,45 +36,45 @@ async function postJSON({
   return new Promise((resolve, reject) => {
     const postDataString = JSON.stringify(postData)
     const searchParams = new URLSearchParams([
-      ['_data', 'routes/_content/refresh-content'],
+      ["_data", "routes/content/refresh-content"],
     ])
     const options = {
       hostname: `${process.env.FLY_APP_NAME}.fly.dev`,
       port: 443,
-      path: `/_content/refresh-content?${searchParams}`,
-      method: 'POST',
+      path: `/content/refresh-content?${searchParams}`,
+      method: "POST",
       headers: {
         auth: process.env.REFRESH_TOKEN,
-        'content-type': 'application/json',
-        'content-length': Buffer.byteLength(postDataString),
+        "content-type": "application/json",
+        "content-length": Buffer.byteLength(postDataString),
         ...overrideHeaders,
       },
       ...overrideOptions,
     }
     try {
-      const req = http.request(options, res => {
-        let data = ''
+      const req = http.request(options, (res) => {
+        let data = ""
 
-        res.on('data', chunk => {
+        res.on("data", (chunk) => {
           data += chunk
         })
-        res.on('end', () => {
+        res.on("end", () => {
           try {
             resolve(JSON.parse(data))
-          } catch (e) {
-            console.error('Error!', err.message)
+          } catch (err) {
+            console.error("Error!", err.message)
             reject(data)
           }
         })
-        res.on('error', err => {
-          console.error('Error!', err.message)
+        res.on("error", (err) => {
+          console.error("Error!", err.message)
           reject(err)
         })
       })
       req.write(postDataString)
       req.end()
     } catch (e) {
-      console.error('Error!', e.message)
+      console.error("Error!", e.message)
       reject(e)
     }
   })
@@ -85,12 +85,12 @@ function getChangedFiles(sha, compareSha) {
     const pattern = /^(?<change>\w).*?\s+(?<filename>.+$)/
 
     const diff = execSync(
-      `git diff --name-status ${sha} ${compareSha}`,
+      `git diff --name-status ${sha} ${compareSha}`
     ).toString()
 
     const changedFiles = diff
-      .split('\n')
-      .map(line => line.match(pattern)?.groups)
+      .split("\n")
+      .map((line) => line.match(pattern)?.groups)
       .filter(Boolean)
 
     const changes = []

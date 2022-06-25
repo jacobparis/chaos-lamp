@@ -1,10 +1,10 @@
-const { fetchJSON, getChangedFiles, postJSON } = require('./utils')
+const { fetchJSON, getChangedFiles, postJSON } = require("./utils")
 
 async function go() {
   const compareSha = process.env.GITHUB_SHA
 
   const shaInfo = await fetchJSON({
-    url: `https://${process.env.FLY_APP_NAME}.fly.dev/_content/refresh-content.json`,
+    url: `https://${process.env.FLY_APP_NAME}.fly.dev/content/refresh-content.json`,
   })
   let sha = shaInfo?.sha
 
@@ -16,7 +16,7 @@ async function go() {
   }
 
   if (!sha) {
-    console.error('Not sure what to refresh 🤷🏻‍♂️')
+    console.error("Not sure what to refresh 🤷🏻‍♂️")
     return
   }
 
@@ -24,12 +24,12 @@ async function go() {
   const contentPaths = changedFiles
     .filter(
       ({ filename }) =>
-        filename.startsWith('content') && filename.match(/\w+\/\w+\/\w+/g),
+        filename.startsWith("content") && filename.match(/\w+\/\w+\/\w+/g)
     )
-    .map(({ filename }) => filename.replace(/^content\//, ''))
+    .map(({ filename }) => filename.replace(/^content\//, ""))
 
   if (contentPaths && contentPaths.length > 0) {
-    console.error('Content changed. Refreshing content 💿', {
+    console.error("Content changed. Refreshing content 💿", {
       currentSHA: compareSha,
       sha,
       contentPaths,
@@ -39,12 +39,12 @@ async function go() {
       postData: { paths: contentPaths, sha: compareSha },
     })
 
-    console.error('Content refreshed 🚀', { response })
+    console.error("Content refreshed 🚀", { response })
   } else {
-    console.error('Nothing to refresh ✨')
+    console.error("Nothing to refresh ✨")
   }
 }
 
-go().catch(error => {
+go().catch((error) => {
   console.error(error)
 })
