@@ -49,3 +49,4 @@ vscode:
     - oderwat.indent-rainbow
     - Prisma.prisma
     - sleistner.vscode-fileutils
+    - yzhang.markdown-all-in-one

@@ -13,7 +13,6 @@ async function compileMdxImpl<FrontmatterType extends Record<string, unknown>>({
   const { default: remarkAutolinkHeader } = await import("remark-autolink-headings");
   const { default: remarkGfm } = await import("remark-gfm")
   const { default: remarkSlug } = await import("remark-slug")
-  const { default: rehypeHighlight } = await import("rehype-highlight")
 
   const indexPattern = /index.mdx?$/
   const indexFile = files.find(({ path }) => path.match(indexPattern))
@@ -43,7 +42,16 @@ async function compileMdxImpl<FrontmatterType extends Record<string, unknown>>({
           [remarkAutolinkHeader, { behavior: "wrap" }],
           remarkGfm,
         ],
-        rehypePlugins: [...(options.rehypePlugins ?? []), rehypeHighlight],
+        rehypePlugins: [
+          ...(options.rehypePlugins ?? []),
+          [
+            require(`rehype-shiki`),
+            {
+              theme: `app/styles/from-paris-with-love.json`,
+              useBackground: true,
+            },
+          ],
+        ],
       }),
     })
 
@@ -55,7 +63,7 @@ async function compileMdxImpl<FrontmatterType extends Record<string, unknown>>({
 
 function arrayToObject<Item extends Record<string, unknown>>(
   array: Array<Item>,
-  { keyname, valuename }: { keyname: keyof Item; valuename: keyof Item }
+  { keyname, valuename }: { keyname: keyof Item; valuename: keyof Item },
 ) {
   const obj: Record<string, Item[keyof Item]> = {}
 
@@ -72,12 +80,12 @@ function arrayToObject<Item extends Record<string, unknown>>(
 }
 
 async function queuedCompileMdx<
-  FrontmatterType extends Record<string, unknown>
+  FrontmatterType extends Record<string, unknown>,
 >(...params: Parameters<typeof compileMdxImpl>) {
   const queue = await getQueue()
 
   const result = await queue.add(() =>
-    compileMdxImpl<FrontmatterType>(...params)
+    compileMdxImpl<FrontmatterType>(...params),
   )
 
   return result

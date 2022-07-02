@@ -6,6 +6,7 @@ module.exports = {
     "@remix-run/eslint-config",
     "@remix-run/eslint-config/node",
     "@remix-run/eslint-config/jest-testing-library",
+    "plugin:mdx/recommended",
     "prettier",
   ],
   // we're using vitest which has a very similar API to jest
@@ -15,5 +16,6 @@ module.exports = {
     jest: {
       version: 27,
     },
+    "mdx/code-blocks": true,
   },
-};
+}

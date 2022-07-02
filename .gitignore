@@ -4,6 +4,8 @@ node_modules
 /public/build
 .env
 
+**ignore**
+
 /cypress/screenshots
 /cypress/videos
 /prisma/data.db

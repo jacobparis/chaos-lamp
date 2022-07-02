@@ -111,7 +111,7 @@ export default function Index() {
                           location.pathname === "/"
                             ? "bg-gray-100 text-gray-900"
                             : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                          "group flex items-center rounded-md px-2 py-2 text-base font-medium"
+                          "group flex items-center rounded-md px-2 py-2 text-base font-medium",
                         )}
                       >
                         <HomeIcon
@@ -119,7 +119,7 @@ export default function Index() {
                             location.pathname === "/"
                               ? "text-gray-500"
                               : "text-gray-400 group-hover:text-gray-500",
-                            "mr-4 h-6 w-6 flex-shrink-0"
+                            "mr-4 h-6 w-6 flex-shrink-0",
                           )}
                           aria-hidden="true"
                         />
@@ -133,7 +133,7 @@ export default function Index() {
                             location.pathname === item.href
                               ? "bg-gray-100 text-gray-900"
                               : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                            "group flex items-center rounded-md px-2 py-2 text-base font-medium"
+                            "group flex items-center rounded-md px-2 py-2 text-base font-medium",
                           )}
                         >
                           <item.icon
@@ -141,7 +141,7 @@ export default function Index() {
                               location.pathname === item.href
                                 ? "text-gray-500"
                                 : "text-gray-400 group-hover:text-gray-500",
-                              "mr-4 h-6 w-6 flex-shrink-0"
+                              "mr-4 h-6 w-6 flex-shrink-0",
                             )}
                             aria-hidden="true"
                           />
@@ -210,7 +210,7 @@ export default function Index() {
                     location.pathname === "/"
                       ? "bg-gray-100 text-gray-900"
                       : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                    "group flex items-center rounded-md px-2 py-2 text-sm font-medium"
+                    "group flex items-center rounded-md px-2 py-2 text-sm font-medium",
                   )}
                 >
                   <HomeIcon
@@ -218,7 +218,7 @@ export default function Index() {
                       location.pathname === "/"
                         ? "text-gray-500"
                         : "text-gray-400 group-hover:text-gray-500",
-                      "mr-3 h-6 w-6 flex-shrink-0"
+                      "mr-3 h-6 w-6 flex-shrink-0",
                     )}
                     aria-hidden="true"
                   />
@@ -232,7 +232,7 @@ export default function Index() {
                       location.pathname === item.href
                         ? "bg-gray-100 text-gray-900"
                         : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                      "group flex items-center rounded-md px-2 py-2 text-sm font-medium"
+                      "group flex items-center rounded-md px-2 py-2 text-sm font-medium",
                     )}
                   >
                     <item.icon
@@ -240,7 +240,7 @@ export default function Index() {
                         location.pathname === item.href
                           ? "text-gray-500"
                           : "text-gray-400 group-hover:text-gray-500",
-                        "mr-3 h-6 w-6 flex-shrink-0"
+                        "mr-3 h-6 w-6 flex-shrink-0",
                       )}
                       aria-hidden="true"
                     />
@@ -291,7 +291,7 @@ export default function Index() {
           </div>
         </div>
         <div className="flex flex-1 flex-col lg:pl-64">
-          <div className="sticky top-0 z-10 bg-gray-100 pl-1 pt-1 sm:pl-3 sm:pt-3 lg:hidden">
+          <div className="sticky top-0 z-10 bg-gray-100 pl-1 pt-1 sm:pl-3 lg:hidden">
             <button
               type="button"
               className="-ml-0.5 -mt-0.5 inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
