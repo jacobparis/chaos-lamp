@@ -11,7 +11,7 @@ import type { MdxPage } from "~/types"
 import { compileMdx } from "./compile-mdx.server"
 import { downloadDirectoryList, downloadMdxOrDirectory } from "./github.server"
 
-async function dirList(dir: string) {
+export async function dirList(dir: string) {
   const basePath = `content/${dir}`
   const dirList = await downloadDirectoryList(basePath)
 
@@ -23,14 +23,14 @@ async function dirList(dir: string) {
   })
 }
 
-async function downloadMdx(
+export async function downloadMdx(
   filesList: Array<{ slug: string }>,
   contentDir: string,
 ) {
   return Promise.all(
     filesList.map(async ({ slug }) => {
       const path = `${contentDir}/${slug}`
-
+      console.log({ path })
       return {
         ...(await downloadMdxOrDirectory(path)),
         path,
@@ -40,7 +40,9 @@ async function downloadMdx(
   )
 }
 
-async function compileMdxPages(pages: Awaited<ReturnType<typeof downloadMdx>>) {
+export async function compileMdxPages(
+  pages: Awaited<ReturnType<typeof downloadMdx>>,
+) {
   return Promise.all(
     pages.map(async ({ files, slug }) => {
       const compiledPage = await compileMdx<MdxPage["frontmatter"]>({

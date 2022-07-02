@@ -13,6 +13,12 @@ import { getMdxPage } from "~/utils/mdx.server"
 import type { MdxComponent } from "~/types"
 
 import { getSeoMeta } from "~/utils/seo"
+import CodeBlock from "~/components/code-block"
+import blogStyles from "app/styles/blog.css"
+
+export const links: LinksFunction = () => {
+  return [{ rel: "stylesheet", href: blogStyles }]
+}
 
 export const meta: MetaFunction = ({ data }: { data: MdxComponent }) => {
   const { keywords = [] } = data.frontmatter.meta ?? {}
@@ -61,11 +67,13 @@ export default function Blog() {
   return (
     <article className="prose prose-zinc mx-auto min-h-screen max-w-prose px-4 pt-24 dark:prose-invert lg:prose-lg">
       <h1 className="drop-shadow-sm"> {data.title} </h1>
+
       <Component
         components={{
           Tweet,
           Excerpt,
           em: Highlight,
+          pre: CodeBlock,
         }}
       />
 

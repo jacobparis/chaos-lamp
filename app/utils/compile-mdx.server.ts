@@ -2,6 +2,8 @@ import { bundleMDX } from "mdx-bundler"
 import type { GitHubFile } from "~/types"
 import { getQueue } from "./p-queue.server"
 
+import { visit } from "unist-util-visit"
+
 async function compileMdxImpl<FrontmatterType extends Record<string, unknown>>({
   slug,
   files,
@@ -44,6 +46,7 @@ async function compileMdxImpl<FrontmatterType extends Record<string, unknown>>({
         ],
         rehypePlugins: [
           ...(options.rehypePlugins ?? []),
+          rehypeMetaAttribute,
           [
             require(`rehype-shiki`),
             {
@@ -58,6 +61,26 @@ async function compileMdxImpl<FrontmatterType extends Record<string, unknown>>({
     return { code, frontmatter: frontmatter as FrontmatterType }
   } catch (e) {
     throw new Error(`MDX Compilation failed for ${slug}`)
+  }
+}
+
+const re = /\b([-\w]+(?![^{]*}))(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
+
+export const rehypeMetaAttribute = (options = {}) => {
+  return (tree) => {
+    visit(tree, "element", visitor)
+  }
+
+  function visitor(node, index, parentNode) {
+    let match
+
+    if (node.tagName === "code" && node.data && node.data.meta) {
+      re.lastIndex = 0 // Reset regex.
+
+      while ((match = re.exec(node.data.meta))) {
+        parentNode.properties[match[1]] = match[2] || match[3] || match[4] || ""
+      }
+    }
   }
 }
 

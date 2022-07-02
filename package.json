@@ -47,12 +47,14 @@
     "p-queue": "^7.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-use-clipboard": "^1.0.8",
     "rehype-shiki": "^0.0.9",
     "remark-autolink-headings": "^7.0.1",
     "remark-gfm": "^3.0.1",
     "remark-slug": "^7.0.1",
     "remix-seo": "^0.1.0",
-    "tiny-invariant": "^1.2.0"
+    "tiny-invariant": "^1.2.0",
+    "unist-util-visit": "^4.1.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^6.3.1",

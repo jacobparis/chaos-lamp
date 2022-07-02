@@ -12,6 +12,7 @@ import { Fragment, useState } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import {
   BookOpenIcon,
+  ColorSwatchIcon,
   HomeIcon,
   MenuIcon,
   XIcon,
@@ -19,7 +20,14 @@ import {
 import type { LoaderFunction } from "@remix-run/node"
 import { json } from "@remix-run/node"
 
-const navigation = [{ name: "Blog", href: "/blog", icon: BookOpenIcon }]
+const navigation = [
+  { name: "Blog", href: "/blog", icon: BookOpenIcon },
+  {
+    name: "VS Code themes",
+    href: "/themes",
+    icon: ColorSwatchIcon,
+  },
+]
 
 function classNames(...classes: Array<string | undefined>) {
   return classes.filter(Boolean).join(" ")
@@ -301,7 +309,7 @@ export default function Index() {
               <MenuIcon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <main className="flex-1">
+          <main className="mb-48 flex-1">
             <Outlet />
           </main>
         </div>
