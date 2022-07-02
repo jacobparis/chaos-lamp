@@ -1,10 +1,4 @@
-import {
-  Link,
-  Outlet,
-  useLoaderData,
-  useLocation,
-  useMatches,
-} from "@remix-run/react"
+import { Outlet, useLocation } from "@remix-run/react"
 
 import { useOptionalUser } from "~/utils"
 
@@ -15,6 +9,7 @@ import {
   ColorSwatchIcon,
   HomeIcon,
   MenuIcon,
+  TemplateIcon,
   XIcon,
 } from "@heroicons/react/outline"
 import type { LoaderFunction } from "@remix-run/node"
@@ -26,6 +21,11 @@ const navigation = [
     name: "VS Code themes",
     href: "/themes",
     icon: ColorSwatchIcon,
+  },
+  {
+    name: "Projects",
+    href: "/projects",
+    icon: TemplateIcon,
   },
 ]
 

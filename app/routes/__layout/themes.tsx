@@ -9,7 +9,6 @@ import { useLoaderData } from "@remix-run/react"
 import { getSeo } from "~/utils/seo"
 import type { getMdxListItems } from "~/utils/mdx.server"
 import { compileMdxPages, dirList, downloadMdx } from "~/utils/mdx.server"
-import type { LinkHTMLAttributes } from "react"
 import { useMemo, useState } from "react"
 import { getMDXComponent } from "mdx-bundler/client"
 
@@ -18,6 +17,7 @@ import StripeDocsGray from "app/styles/stripe-docs-gray.json"
 import StripeDocsBlue from "app/styles/stripe-docs-blue.json"
 
 import CodeBlock from "~/components/code-block"
+import { ExternalLink } from "../../components/ExternalLink"
 
 const [seoMeta, seoLinks] = getSeo({
   title: "VS Code Themes",
@@ -127,9 +127,6 @@ export default function Themes() {
   )
 }
 
-function ExternalLink(props: LinkHTMLAttributes<T>) {
-  return <a target="_blank" rel="noopener" {...props} />
-}
 function ThemePreview({ theme: { colors, themeName }, languages }) {
   const [language, setLanguage] = useState("javascript")
 
