@@ -9,7 +9,7 @@ When working with CSS Grid, nesting elements can break the layout.
 
 ```js numbered
 const gridData = data.map(
-  ({id, firstName, lastName, team}) => {
+  ({ id, firstName, lastName, team }) => {
     return (
       <>
         <span>{firstName}</span>
@@ -29,7 +29,7 @@ The easy way to add the key is to add it to the parent, but since `<key={id}>` i
 
 ```js numbered {4, 8}
 const gridData = data.map(
-  ({id, firstName, lastName, team}) => {
+  ({ id, firstName, lastName, team }) => {
     return (
       <div key={id}>
         <span>{firstName}</span>
@@ -47,7 +47,7 @@ One solution is to add keys directly to each child. Since keys need to be unique
 
 ```js
 const gridData = data.map(
-  ({id, firstName, lastName, team}) => {
+  ({ id, firstName, lastName, team }) => {
     return (
       <>
         <span key={`${id}:firstName`}>
@@ -65,11 +65,11 @@ const gridData = data.map(
 )
 ```
 
-But – as it turns out, the long-form `React.Fragment` has no problem accepting props, and we can just key on that instead.
+But – as it turns out, the long-form `React.Fragment` has no problem accepting props<SideNote>The only props that are valid for a React.Fragment are `key` and `children`, as noted in the [source code here](https://github.com/facebook/react/blob/master/packages/react/src/jsx/ReactJSXElementValidator.js#L281)</SideNote>, and we can just key on that instead.
 
 ```js
 const gridData = data.map(
-  ({id, firstName, lastName, team}) => {
+  ({ id, firstName, lastName, team }) => {
     return (
       <React.Fragment key={id}>
         <span>{firstName}</span>
@@ -80,9 +80,3 @@ const gridData = data.map(
   },
 )
 ```
-
-<SideNote>
-
-The only props that are valid for a React.Fragment are `key` and `children`, as noted in the [source code here](https://github.com/facebook/react/blob/master/packages/react/src/jsx/ReactJSXElementValidator.js#L281)
-
-</SideNote>

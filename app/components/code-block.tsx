@@ -3,12 +3,10 @@ import * as React from "react"
 import useClipboard from "react-use-clipboard"
 
 export default function CodeBlock(props) {
-  console.log(props.children)
   const language = props.children.props.className
 
   const { numbered, linesHighlighted, labeled, filePath } = props
 
-  console.log({ numbered, linesHighlighted, labeled, filePath })
   // extract code from nodes ?
   let code = ""
 
@@ -63,7 +61,7 @@ export default function CodeBlock(props) {
   }
 
   return (
-    <div className="bg-code not-prose relative clear-both -mx-5 mb-5 overflow-hidden rounded-none sm:mx-0 sm:rounded-md">
+    <div className="bg-code not-prose relative -mx-5 mb-5 overflow-hidden rounded-none sm:mx-0 sm:rounded-md">
       {labeled != undefined && (
         <>
           <div className="pointer-events-none select-none px-10 pt-3 pb-0 text-white sm:px-5 sm:pb-3">

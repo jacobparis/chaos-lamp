@@ -66,7 +66,7 @@ export default function Themes() {
   const { languageSamples } = useLoaderData<LoaderData>()
 
   return (
-    <section className="mx-auto min-h-screen max-w-prose px-4 pt-24">
+    <section className="mr-auto min-h-screen max-w-prose px-4 pt-24 sm:pl-12">
       <h1 className=" mb-12 text-4xl font-extrabold drop-shadow-sm lg:mb-16 lg:text-5xl">
         VS Code Themes
       </h1>

@@ -54,7 +54,6 @@ export default function Index() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const location = useLocation()
-  console.log(location)
   return (
     <>
       <div>
@@ -206,11 +205,11 @@ export default function Index() {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
+        <div className="z-30 hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex min-h-0 flex-1 flex-col bg-white">
+          <div className="flex min-h-0 flex-1 flex-col bg-gradient-to-l from-white to-white/80 backdrop-blur">
             <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
-              <nav className="mt-5 flex-1 space-y-1 bg-white px-2">
+              <nav className="mt-5 flex-1 space-y-1  px-2">
                 <a
                   key="Home"
                   href="/"

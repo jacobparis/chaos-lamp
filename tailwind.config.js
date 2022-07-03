@@ -1,3 +1,5 @@
+const colors = require("tailwindcss/colors")
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./app/**/*.{ts,tsx,jsx,js}"],
@@ -6,6 +8,9 @@ module.exports = {
       screens: {
         print: { raw: "print" },
         screen: { raw: "screen" },
+      },
+      colors: {
+        gray: colors.slate,
       },
     },
   },

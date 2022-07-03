@@ -47,6 +47,7 @@
     "p-queue": "^7.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-uid": "^2.3.2",
     "react-use-clipboard": "^1.0.8",
     "rehype-shiki": "^0.0.9",
     "remark-autolink-headings": "^7.0.1",

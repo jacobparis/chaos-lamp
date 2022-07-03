@@ -30,7 +30,6 @@ export async function downloadMdx(
   return Promise.all(
     filesList.map(async ({ slug }) => {
       const path = `${contentDir}/${slug}`
-      console.log({ path })
       return {
         ...(await downloadMdxOrDirectory(path)),
         path,

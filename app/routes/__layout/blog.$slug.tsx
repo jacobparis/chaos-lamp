@@ -16,6 +16,7 @@ import { getSeoMeta } from "~/utils/seo"
 import CodeBlock from "~/components/code-block"
 import blogStyles from "app/styles/blog.css"
 
+import { useUID } from "react-uid"
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: blogStyles }]
 }
@@ -65,13 +66,17 @@ export default function Blog() {
   const url = `https://www.jacobparis.com/blog/${data.slug}`
 
   return (
-    <article className="prose prose-zinc mx-auto min-h-screen max-w-prose px-4 pt-24 dark:prose-invert lg:prose-lg">
+    <article
+      className="prose prose-slate mr-auto min-h-screen max-w-prose px-4  pt-24 dark:prose-invert sm:pl-12 lg:prose-lg"
+      style={{ counterReset: "footnote-counter 0" }}
+    >
       <h1 className="drop-shadow-sm"> {data.title} </h1>
 
       <Component
         components={{
           Tweet,
           Excerpt,
+          SideNote,
           em: Highlight,
           pre: CodeBlock,
         }}
@@ -121,6 +126,27 @@ function Highlight({ children }) {
     <span className="-mx-1 bg-yellow-100 py-2 px-1 text-gray-700">
       {" "}
       {children}{" "}
+    </span>
+  )
+}
+
+function SideNote({ children }) {
+  const id = useUID()
+
+  return (
+    // <aside> cannot be a child of <p>
+    <span role="complementary">
+      <label
+        htmlFor={id}
+        className={
+          "relative -top-1 -mx-4 inline cursor-pointer px-4 align-baseline text-xs text-blue-700  after:content-['['_counter(footnote-counter)_']'] md:cursor-default md:text-gray-600"
+        }
+        style={{ counterIncrement: "footnote-counter" }}
+      ></label>
+      <input type="checkbox" id={id} tabIndex={0} className="peer hidden" />
+      <span className="relative hidden transform overflow-visible border-l pl-4  align-baseline  text-sm opacity-90 before:relative before:-top-1 before:text-xs before:content-['['_counter(footnote-counter)_']']  peer-checked:left-0 peer-checked:float-left peer-checked:clear-both peer-checked:my-4 peer-checked:block peer-checked:h-auto md:!float-right md:!clear-right md:!my-0 md:mr-[-33%] md:block md:w-[33%] md:translate-x-4">
+        {children}
+      </span>
     </span>
   )
 }

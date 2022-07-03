@@ -52,7 +52,7 @@ export default function Blog() {
   const { blogList } = useLoaderData<LoaderData>()
 
   return (
-    <section className="mx-auto min-h-screen max-w-prose pt-24">
+    <section className="mr-auto min-h-screen max-w-prose px-4 pt-24 sm:pl-12">
       <BlogList blogList={blogList} />
     </section>
   )

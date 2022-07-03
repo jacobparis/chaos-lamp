@@ -9,19 +9,19 @@ Imagine an adapter that converts the names of countries into their country codes
 
 ```ts
 type CountryName =
-  | 'Canada'
-  | 'United States'
-  | 'Mexico'
+  | "Canada"
+  | "United States"
+  | "Mexico"
 
-type CountryCode = 'CA' | 'US' | 'MX'
+type CountryCode = "CA" | "US" | "MX"
 
 const countryNameToCode: Record<
   CountryName,
   CountryCode
 > = {
-  Canada: 'CA',
-  'United States': 'US',
-  Mexico: 'MX',
+  Canada: "CA",
+  "United States": "US",
+  Mexico: "MX",
 }
 ```
 
@@ -51,7 +51,7 @@ reverseRecord(countryNameToCode)
 
 ## Solution
 
-The Typescript solution is to use type parameters to track the input type, and then cast the result as a Record with those reversed
+The Typescript solution is to use type parameters to track the input type, and then cast the result as a Record with those reversed<SideNote id={1}>Thanks to <a href="https://twitter.com/intent/follow?screen_name=fildon_dev" rel="noopener" target="_blank"> Rupert </a> for this solution and thanks to <a href="https://twitter.com/intent/follow?screen_name=eddyw_dev" rel="noopener" target="_blank"> Eddy </a> for the idea to use the built in `PropertyKey`</SideNote>
 
 We'll end up with a signature looking like this
 
@@ -68,7 +68,7 @@ function reverseRecord<CountryName, CountryCode>(
 ```ts
 function reverseRecord<
   T extends PropertyKey,
-  U extends PropertyKey
+  U extends PropertyKey,
 >(input: Record<T, U>) {
   return Object.fromEntries(
     Object.entries(input).map(([key, value]) => [
@@ -78,12 +78,6 @@ function reverseRecord<
   ) as Record<U, T>
 }
 ```
-
-<SideNote>
-
-Thanks to <a href="https://twitter.com/intent/follow?screen_name=fildon_dev" rel="noopener" target="twitter"> Rupert </a> for this solution and thanks to <a href="https://twitter.com/intent/follow?screen_name=eddyw_dev" rel="noopener" target="twitter"> Eddy </a> for the idea to use the built in `PropertyKey`
-
-</SideNote>
 
 ### JSDoc
 
@@ -112,9 +106,9 @@ For reasons I don't yet understand, splitting it into two lines does seem to fix
  * @returns {Record<U, T>}
  */
 function reverseRecord(input) {
-  const entries = Object.entries(
-    input,
-  ).map(([key, value]) => [value, key])
+  const entries = Object.entries(input).map(
+    ([key, value]) => [value, key],
+  )
 
   return Object.fromEntries(entries)
 }
