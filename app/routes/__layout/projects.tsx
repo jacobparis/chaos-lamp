@@ -188,7 +188,7 @@ function ThreeQMock() {
 function FakeBrowser({ href, title, children, className = "" }) {
   return (
     <div
-      className={`not-prose overflow-hidden rounded-b rounded-t-xl shadow-lg ${className}`}
+      className={`not-prose overflow-hidden rounded-b rounded-t-xl bg-white shadow-lg ${className}`}
     >
       <div className="flex h-8 items-center justify-between border bg-gray-100 px-4 ">
         <div className="flex space-x-2">

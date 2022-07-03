@@ -207,7 +207,7 @@ export default function Index() {
         {/* Static sidebar for desktop */}
         <div className="z-30 hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex min-h-0 flex-1 flex-col bg-gradient-to-l from-white to-white/80 backdrop-blur">
+          <div className="flex min-h-0 flex-1 flex-col bg-gradient-to-l from-white to-white/60 backdrop-blur">
             <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
               <nav className="mt-5 flex-1 space-y-1  px-2">
                 <a
@@ -308,7 +308,25 @@ export default function Index() {
               <MenuIcon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <main className="mb-48 flex-1">
+          <main className="relative mb-48 flex-1">
+            <div className="absolute h-[60vw] w-full overflow-hidden">
+              <div
+                className="absolute -right-[20%] -top-[20%] -z-10 h-[60vw] w-[60vw] opacity-40"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle farthest-side at 50% 50%, dodgerblue, #fff0)",
+                }}
+              />
+
+              <div
+                className="absolute -left-[20%] top-0 -z-10 h-[60vw] w-[60vw] pt-48  opacity-20"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle farthest-side at 50% 50%, deeppink, #fff0)",
+                }}
+              ></div>
+            </div>
+
             <Outlet />
           </main>
         </div>
