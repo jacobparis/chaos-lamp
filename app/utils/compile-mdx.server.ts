@@ -69,7 +69,7 @@ async function compileMdxImpl<FrontmatterType extends Record<string, unknown>>({
           [
             require(`rehype-shiki`),
             {
-              theme: `app/styles/from-paris-with-love.json`,
+              theme: `public/from-paris-with-love.json`,
               useBackground: true,
             },
           ],
