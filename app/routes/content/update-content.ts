@@ -22,6 +22,7 @@ export const action: ActionFunction = async ({ request }) => {
   if ("refreshAll" in body && body.refreshAll === true) {
     await refreshAllContent()
     void getMdxListItems({ contentDirectory: "blog" })
+    void getMdxListItems({ contentDirectory: "language-samples" })
 
     console.log(`🌀 Refreshing all contents. SHA: ${body.sha}`)
 
@@ -42,6 +43,9 @@ export const action: ActionFunction = async ({ request }) => {
     }
     if (refreshPaths.some((p) => p.startsWith("blog"))) {
       void getMdxListItems({ contentDirectory: "blog" })
+    }
+    if (refreshPaths.some((p) => p.startsWith("language-samples"))) {
+      void getMdxListItems({ contentDirectory: "language-samples" })
     }
     if ("sha" in body) {
       void setContentSHA(body.sha)

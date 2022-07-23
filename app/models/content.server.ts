@@ -27,7 +27,7 @@ export async function requiresUpdate(contentDirectory: string) {
   return requiresUpdate
 }
 
-export async function getContentList(contentDirectory = "blog") {
+export async function getContentList(contentDirectory) {
   const contents = await db.content.findMany({
     where: { published: true, contentDirectory },
     select: {
