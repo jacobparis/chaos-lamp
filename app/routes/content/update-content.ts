@@ -29,7 +29,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   if ("paths" in body && Array.isArray(body.paths)) {
-    const refreshPaths = []
+    const refreshPaths: Array<string> = []
     for (const path of body.paths) {
       const [contentDirectory, dirOrFile] = path.split("/")
       if (!contentDirectory || !dirOrFile) {

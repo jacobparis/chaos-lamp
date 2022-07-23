@@ -1,5 +1,5 @@
-import { LinkHTMLAttributes } from "react"
+import type { LinkHTMLAttributes } from "react"
 
-export function ExternalLink(props: LinkHTMLAttributes<T>) {
+export function ExternalLink(props: LinkHTMLAttributes<HTMLAnchorElement>) {
   return <a target="_blank" rel="noopener" {...props} />
 }
