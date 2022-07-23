@@ -7,14 +7,13 @@ import type {
 import { json } from "@remix-run/server-runtime"
 import { useLoaderData } from "@remix-run/react"
 import { getSeo } from "~/utils/seo"
-import type { getMdxListItems } from "~/utils/mdx.server"
 import { compileMdxPages, dirList, downloadMdx } from "~/utils/mdx.server"
 import { useMemo, useState } from "react"
 import { getMDXComponent } from "mdx-bundler/client"
 
-import FromParisWithLove from "app/styles/from-paris-with-love.json"
-import StripeDocsGray from "app/styles/stripe-docs-gray.json"
-import StripeDocsBlue from "app/styles/stripe-docs-blue.json"
+import FromParisWithLove from "public/from-paris-with-love.json"
+import StripeDocsGray from "public/stripe-docs-gray.json"
+import StripeDocsBlue from "public/stripe-docs-blue.json"
 
 import CodeBlock from "~/components/code-block"
 import { ExternalLink } from "../../components/ExternalLink"

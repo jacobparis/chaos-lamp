@@ -309,7 +309,7 @@ export default function Index() {
             </button>
           </div>
           <main className="relative mb-48 flex-1">
-            <div className="absolute h-[60vw] w-full overflow-hidden">
+            <div className="pointer-events-none absolute h-[60vw] w-full overflow-hidden">
               <div
                 className="absolute -right-[20%] -top-[20%] -z-10 h-[60vw] w-[60vw] opacity-40"
                 style={{
