@@ -2,8 +2,6 @@ import { bundleMDX } from "mdx-bundler"
 import type { GitHubFile } from "~/types"
 import { getQueue } from "./p-queue.server"
 
-import { visit } from "unist-util-visit"
-
 async function compileMdxImpl<FrontmatterType extends Record<string, unknown>>({
   slug,
   files,
@@ -15,6 +13,8 @@ async function compileMdxImpl<FrontmatterType extends Record<string, unknown>>({
   const { default: remarkAutolinkHeader } = await import("remark-autolink-headings");
   const { default: remarkGfm } = await import("remark-gfm")
   const { default: remarkSlug } = await import("remark-slug")
+
+  const { visit } = await import("unist-util-visit")
 
   const indexPattern = /index.mdx?$/
   const indexFile = files.find(({ path }) => path.match(indexPattern))
@@ -32,6 +32,25 @@ async function compileMdxImpl<FrontmatterType extends Record<string, unknown>>({
     keyname: "path",
     valuename: "content",
   })
+
+  const rehypeMetaAttribute = () => {
+    return (tree) => {
+      visit(tree, "element", visitor)
+    }
+
+    function visitor(node, index, parentNode) {
+      let match
+
+      if (node.tagName === "code" && node.data && node.data.meta) {
+        re.lastIndex = 0 // Reset regex.
+
+        while ((match = re.exec(node.data.meta))) {
+          parentNode.properties[match[1]] =
+            match[2] || match[3] || match[4] || ""
+        }
+      }
+    }
+  }
 
   try {
     const { code, frontmatter } = await bundleMDX({
@@ -65,24 +84,6 @@ async function compileMdxImpl<FrontmatterType extends Record<string, unknown>>({
 }
 
 const re = /\b([-\w]+(?![^{]*}))(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
-
-export const rehypeMetaAttribute = (options = {}) => {
-  return (tree) => {
-    visit(tree, "element", visitor)
-  }
-
-  function visitor(node, index, parentNode) {
-    let match
-
-    if (node.tagName === "code" && node.data && node.data.meta) {
-      re.lastIndex = 0 // Reset regex.
-
-      while ((match = re.exec(node.data.meta))) {
-        parentNode.properties[match[1]] = match[2] || match[3] || match[4] || ""
-      }
-    }
-  }
-}
 
 function arrayToObject<Item extends Record<string, unknown>>(
   array: Array<Item>,
